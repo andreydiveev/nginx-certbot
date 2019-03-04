@@ -1,6 +1,7 @@
 #!/bin/bash
 
 domains=(example.com www.example.com)
+nginx_container="nginx"
 rsa_key_size=4096
 data_path="./data/certbot"
 email="" # Adding a valid address is strongly recommended
@@ -34,7 +35,7 @@ echo
 
 
 echo "### Starting nginx ..."
-docker-compose up --force-recreate -d nginx
+docker-compose up --force-recreate -d $nginx_container
 echo
 
 echo "### Deleting dummy certificate for $domains ..."
@@ -72,4 +73,4 @@ docker-compose run --rm --entrypoint "\
 echo
 
 echo "### Reloading nginx ..."
-docker-compose exec nginx nginx -s reload
+docker-compose exec $nginx_container nginx -s reload
